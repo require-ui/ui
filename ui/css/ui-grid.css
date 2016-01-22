@@ -39,3 +39,14 @@
 .ui-grid .grid-editable-td input{
   text-align: center;
 }
+.ui-grid a{
+  color: #336699;
+  text-decoration: none;
+}
+.ui-grid a:hover{
+  color: #FF6600;
+}
+
+.btn-prev{
+
+}

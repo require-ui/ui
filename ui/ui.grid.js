@@ -86,6 +86,7 @@ define(['jquery', 'mustache', 'ui.widget', 'ui.ajax'],
     '  {{#hasNext}}' +
     '  <a href="javascript:;" class="btn-next">下一页</a>' +
     '  {{/hasNext}}' +
+    '  &nbsp;&nbsp;当前{{page}}/{{pageCount}}页' +
     '</div>';
 
   var EDITABLE_TD_CLS = 'grid-editable-td';
@@ -94,9 +95,8 @@ define(['jquery', 'mustache', 'ui.widget', 'ui.ajax'],
 
     // 默认配置
     defaults: {
-      page: 1,
-      pageSize: 10,
-      pagination: false
+      pagination: false,
+      params: {}
     },
 
     // 初始化
@@ -114,7 +114,9 @@ define(['jquery', 'mustache', 'ui.widget', 'ui.ajax'],
       thead = Mustache.render(TPL_THEAD_TRS, cfg);
       tag.find('thead').html(thead);
 
-      this.refresh();
+      if(cfg.autoLoad !== false){
+        this.refresh();
+      };
 
       // 点击单元格变成可编辑
       tag.on('click', 'td.' + EDITABLE_TD_CLS, function(){
@@ -155,12 +157,12 @@ define(['jquery', 'mustache', 'ui.widget', 'ui.ajax'],
       });
 
       tag.on('click', '.btn-next', function(){
-        cfg.page += 1;
+        cfg.params.page += 1;
         self.refresh();
       });
 
       tag.on('click', '.btn-prev', function(){
-        cfg.page -= 1;
+        cfg.params.page -= 1;
         self.refresh();
       });
 
@@ -168,33 +170,41 @@ define(['jquery', 'mustache', 'ui.widget', 'ui.ajax'],
     },
 
     // 刷新数据，从URL或本地
-    refresh: function(){
-      var self = this;
+    refresh: function(params){
+      var self = this, cfg = this.config;
+
+      $.extend(cfg.params, params, {page: cfg.params.page});
 
       // 加载本地或者远程数据
-      Ajax.loadJSON(this.config, function(data){
-        self.loadData(data);
+      Ajax.loadJSON(cfg, function(data, json){
+        self.loadData(data, {
+          total: json.total || 0
+        });
       });
     },
 
     // 加载数据
-    loadData: function(data){
+    loadData: function(data, opts){
       var tag = this.target, cfg = this.config;
       var tbody;
       var rows = [], row, cols, value;
       var cells = this._cells = this._cells || {};
       var pageData = [];
-      var maxPage = Math.ceil(data.length / cfg.pageSize);
+      var dataSize = opts.total || data.length;
+      var maxPage = Math.ceil(dataSize / cfg.params.pageSize);
       //
-      cfg.page = Math.max(cfg.page, 1);
-      cfg.page = Math.min(cfg.page, maxPage);
-      console.info(cfg.page)
+      cfg.params.page = Math.max(cfg.params.page, 1);
+      cfg.params.page = Math.min(cfg.params.page, maxPage);
+
       //
-      if(cfg.pagination && (data.length > cfg.pageSize) && !cfg.url){
-        pageData = data.slice((cfg.page-1) * cfg.pageSize, cfg.page*cfg.pageSize);
-      }else{
-        pageData = data;
+      pageData = data;
+      //
+      if(cfg.pagination){
+        if(!cfg.url && (dataSize > cfg.params.pageSize)){
+          pageData = data.slice((cfg.params.page-1) * cfg.params.pageSize, cfg.params.page*cfg.params.pageSize);
+        };
       };
+
       //
       $.each(pageData, function(dataIndex, dataRow){
         //
@@ -219,16 +229,22 @@ define(['jquery', 'mustache', 'ui.widget', 'ui.ajax'],
       // 
       tag = cfg = tbody = rows = row = cols = value = null;
       //
-      this.loadDataPager(data);
+      this.loadDataPager(data, opts);
     },
 
-    loadDataPager: function(data){
+    loadDataPager: function(data, opts){
 
       var self = this;
       var tag = this.target, cfg = this.config;
-      var tfoot, dataSize = data.length;
+      var tfoot, dataSize, pageCount;
+
+      opts = opts || {};
 
       tfoot = this.tfoot;
+
+      dataSize = opts.total || data.length;
+
+      pageCount = Math.ceil(dataSize / cfg.params.pageSize);
       
       // 检查是否已创建tfoot
       if(!tfoot){
@@ -241,7 +257,7 @@ define(['jquery', 'mustache', 'ui.widget', 'ui.ajax'],
       };
 
       // 显示/隐藏分页
-      if(!cfg.pagination || (dataSize <= cfg.pageSize)){
+      if(!cfg.pagination || (dataSize <= cfg.params.pageSize)){
         tag.find('tfoot').hide();
         return;
       }else{
@@ -249,8 +265,10 @@ define(['jquery', 'mustache', 'ui.widget', 'ui.ajax'],
       };
 
       tfoot.find('th').html(Mustache.render(TPL_PAGER, {
-        hasPrev: true,
-        hasNext: true
+        hasPrev: cfg.params.page > 1,
+        hasNext: cfg.params.page < pageCount,
+        page: cfg.params.page,
+        pageCount: pageCount
       }));
     }
 

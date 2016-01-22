@@ -23,7 +23,7 @@ define(['jquery'], function($){
             }else{
               data = json;
             };
-            callback(data);
+            callback(data, json);
           },
           failure: function(){
             callback([]);

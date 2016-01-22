@@ -136,6 +136,10 @@ define(['jquery', 'ui.widget', 'ui.ajax'],
         cfg = this.config;
 
       this.loadData([]);
+    },
+
+    getValue: function(){
+      return this.target.val();
     }
 
   };

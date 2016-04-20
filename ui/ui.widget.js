@@ -36,7 +36,7 @@ define(['ui.event', 'ui.klass', 'jquery'], function(Event, Klass, $){
         // 回调事件
         fn = events[n];
         if(typeof fn === 'string'){
-          fn = self[fn];
+          fn = self[fn].bind(self);
         };
         if(typeof fn !== 'function'){
           continue;
@@ -54,8 +54,8 @@ define(['ui.event', 'ui.klass', 'jquery'], function(Event, Klass, $){
         $(container || document.body)
           .off(event, selector)
           .on(event, selector, function(e){
-            fn.call(self, e);
-          });
+            this(e);
+          }.bind(fn));
       };
 
     },
@@ -63,7 +63,7 @@ define(['ui.event', 'ui.klass', 'jquery'], function(Event, Klass, $){
     // 初始化参数
     parseConfig: function(cfg){
       //
-      this.config = $.extend({}, this.defaults, cfg);
+      this.config = $.extend(true, {}, this.defaults, cfg);
     },
 
     // 初始化DOM

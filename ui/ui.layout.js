@@ -95,7 +95,7 @@ define(['jquery', 'mustache', 'ui.widget'], function($, Mustache, WidgetBase){
 
       // 默认隐藏
       tag.hide();
-
+      
       // 占位符
       // this.placeholder = $('<span style="display:none"></span>')
       //   .insertAfter(tag);
@@ -284,9 +284,6 @@ define(['jquery', 'mustache', 'ui.widget'], function($, Mustache, WidgetBase){
       //
       this.isOpen = true;
 
-      this.bindEvents(layout);
-      this.bindEvents(layout);
-      this.bindEvents(layout);
       this.bindEvents(layout);
 
       return this;

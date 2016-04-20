@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/demo.css">
+  <link rel="stylesheet" href="../ui/css/ui.css">
+</head>
+<body>
+
+  <input type="button" value="新增" id="btnAdd">
+
+  <form action="#" id="loginForm" style="display: none">
+    <label for="">用户名</label>
+    <input type="text">
+    <label for="">邮箱</label>
+    <input type="text">
+    <button>保存</button>
+  </form>
+  
+  <script src="../ui/lib/require/require.js"></script>
+  <script src="../ui/config.js"></script>
+  <script>
+    require(['jquery', 'ui.layout'], function($, Layout){
+      // 初始化控件
+      new Layout('#loginForm', {
+        trigger: '#btnAdd',
+        width: 500,
+        height: 200,
+        autoClose: false
+      });
+    });
+  </script>
+</body>
+</html>

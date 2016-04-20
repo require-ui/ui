@@ -1,4 +1,4 @@
-define(['jquery', 'ui.layout'], function($, Layout){
+define(['jquery', 'layout'], function($, Layout){
 
   var div = $('<div class="ui-msg">').appendTo('body');
 

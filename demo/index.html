@@ -15,23 +15,25 @@
     <input type="text">
     <label for="">邮箱</label>
     <input type="text">
-    <button>保存</button>
+    <button type="button">保存</button>
+    <button type="button" class="close">关闭</button>
   </form>
   
   <script src="../ui/lib/require/require.js"></script>
   <script src="../ui/config.js"></script>
   <script>
-    require(['jquery', 'ui.layout'], function($, Layout){
+    require(['jquery', 'layout'], function($, Layout){
       // 初始化控件
       var layout = new Layout('#loginForm', {
         trigger: '#btnAdd',
         width: 500,
         height: 200,
-        autoClose: false,
+        autoClose: true,
         on: {
-          'dblclick input': function(e){
-            console.info(e.target.value)
-          }
+          'click .close': function(e){
+            this.hide();
+          },
+          'dblclick': 'hide'
         }
       });
 

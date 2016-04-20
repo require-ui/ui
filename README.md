@@ -28,7 +28,7 @@
 第四步，通过require引入要使用的模块，然后初始化。
 ```html
 <script>
-  require(['jquery', 'ui.layout'], function($, Layout){
+  require(['jquery', 'layout'], function($, Layout){
     // 初始化控件
     new Layout('#loginForm', {
       trigger: '#btnAdd',
@@ -148,7 +148,7 @@ require('ui.select', function(Select){
 });
 ```
 
-## ui.layout
+## layout
 
 弹出层控件。
 
@@ -156,7 +156,7 @@ require('ui.select', function(Select){
 
 ```js
 //
-require('ui.layout', function(Layout){
+require('layout', function(Layout){
 
   // 第一个参数：作为弹窗内容的元素或选择器
   // 第二个参数：配置参数，可选

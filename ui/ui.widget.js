@@ -30,6 +30,11 @@ define(['ui.event', 'ui.klass', 'jquery'], function(Event, Klass, $){
 
       // this.on 处理
       var events = this.config.on || {}, event, selector, fn;
+
+      if(!container){
+        container = document.body;
+      };
+
       //
       for(var n in events) if(events.hasOwnProperty(n)){
 
@@ -44,18 +49,26 @@ define(['ui.event', 'ui.klass', 'jquery'], function(Event, Klass, $){
 
         // 分解 "event selector"
         n = n.split(/\s+/);
-        if(n.length < 2) continue;
-
-        // event & selector
-        event = n[0]+'.bindEvents';
-        selector = n[1];
+        event = n[0]+'.uiLayoutBindEvents';
 
         // 绑定
-        $(container || document.body)
-          .off(event, selector)
-          .on(event, selector, function(e){
-            this(e);
-          }.bind(fn));
+        if(n.length == 2) {
+
+          selector = n[1];
+
+          $(container)
+            .off(event, selector)
+            .on(event, selector, function(e){
+              this.call(self, e);
+            }.bind(fn));
+        }else{
+          $(container)
+            .off(event)
+            .on(event, function(e){
+              this.call(self, e);
+            }.bind(fn));
+        };
+
       };
 
     },

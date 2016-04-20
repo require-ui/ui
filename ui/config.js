@@ -14,26 +14,28 @@
   var $root$ = pageDir + base;
 
   var paths = {
-    // lib
-    "d3": "lib/d3/d3",
-    "lodash": "lib/lodash/lodash",
-    "jquery": "lib/jquery/jquery",
-    "moment": "lib/moment/moment",
-    "mustache": "lib/mustache/mustache",
-    // ui
-    "ui": "ui",
-    
-    "ui.ajax": "ui.ajax",
-    "ui.event": "ui.event",
-    "ui.klass": "ui.klass",
-    "ui.widget": "ui.widget",
 
-    "ui.grid": "ui.grid",
-    "ui.layout": "ui.layout",
-    "ui.select": "ui.select",
-    "ui.msg": "ui.msg",
-    "ui.where.conditions": "ui.where.conditions",
-    "ui.hive.conditions": "ui.hive.conditions"
+    // lib
+      "d3": "lib/d3/d3"
+    , "lodash": "lib/lodash/lodash"
+    , "jquery": "lib/jquery/jquery"
+    , "moment": "lib/moment/moment"
+    , "mustache": "lib/mustache/mustache"
+
+    // ui
+    , "ui": "ui"
+    
+    , "ui.ajax": "ui.ajax"
+    , "ui.event": "ui.event"
+    , "ui.klass": "ui.klass"
+    , "ui.widget": "ui.widget"
+
+    , "ui.grid": "ui.grid"
+    , "layout": "widget/layout/layout"
+    , "ui.select": "ui.select"
+    , "ui.msg": "ui.msg"
+    , "ui.where.conditions": "ui.where.conditions"
+    , "ui.hive.conditions": "ui.hive.conditions"
   };
 
   // uiDir

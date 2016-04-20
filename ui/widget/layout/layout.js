@@ -3,7 +3,7 @@
 用法：
 
 //
-require(['ui.layout'], function(Layout){
+require(['layout'], function(Layout){
 
   // 第一个参数：作为弹窗内容的元素或选择器
   // 第二个参数：配置参数，可选
@@ -36,29 +36,29 @@ define(['jquery', 'mustache', 'ui.widget'], function($, Mustache, WidgetBase){
   // 关闭按钮（完成）
 
   var TPL_MODAL =
-    '<div class="ui-layout-modal"></div>';
+    '<div class="layout-modal"></div>';
 
   var TPL_LAYOUT =
-    '<div class="ui-layout-widget">' +
+    '<div class="layout-widget">' +
     
     // 关闭按钮
     '  {{#topCloseButton}}' +
-    '   <div class="ui-layout-close">x</div>' +
+    '   <div class="layout-close">x</div>' +
     '  {{/topCloseButton}}' +
 
     // 标题
     '  {{#title}}'+
-    '   <div class="ui-layout-title">' +
+    '   <div class="layout-title">' +
     '    {{title}}' +
     '   </div>' +
     '  {{/title}}'+
 
     // 内容
-    '  <div class="ui-layout-container"></div>' +
+    '  <div class="layout-container"></div>' +
 
     // 按钮组
     '  {{#hasButtons}}'+
-    '   <div class="ui-layout-buttons">' +
+    '   <div class="layout-buttons">' +
     '    {{#buttons}}' +
     '      <button type="button" class="{{cls}}" id="{{id}}">{{text}}</button>' +
     '    {{/buttons}}' +
@@ -83,7 +83,7 @@ define(['jquery', 'mustache', 'ui.widget'], function($, Mustache, WidgetBase){
       closeButtonText: '关闭',
       //
       on: {
-        'click .ui-layout-close-button': 'onClickCloseButton'
+        'click .layout-close-button': 'onClickCloseButton'
       }
     },
 
@@ -180,7 +180,7 @@ define(['jquery', 'mustache', 'ui.widget'], function($, Mustache, WidgetBase){
           buttons.push({
             isCloseButton: true,
             text: cfg.closeButtonText,
-            cls: 'ui-layout-close-button',
+            cls: 'layout-close-button',
             // fn: function(){
             //   if(cfg.onClose.call(self) !== false){
             //     self.hide();
@@ -210,10 +210,10 @@ define(['jquery', 'mustache', 'ui.widget'], function($, Mustache, WidgetBase){
 
         // 创建元素
         layout = $(html).hide().appendTo('body');
-        container = layout.find('.ui-layout-container');
+        container = layout.find('.layout-container');
         self._layout = layout;
         // 关闭按钮
-        layout.on('click', '.ui-layout-close', function(){
+        layout.on('click', '.layout-close', function(){
           if(cfg.onClose.call(self) !== false){
             self.hide();
           };

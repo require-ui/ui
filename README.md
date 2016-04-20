@@ -21,8 +21,8 @@
   <button>保存</button>
 </form>
 
-<script src="ui/lib/require/require.js"></script>
-<script src="ui/config.js"></script>
+<script src="../ui/lib/require/require.js"></script>
+<script src="../ui/config/config.js"></script>
 ```
 
 第四步，通过require引入要使用的模块，然后初始化。
@@ -42,7 +42,7 @@
 
 以下是目前包含的控件的参数说明：
 
-## ui.grid 
+## grid 
 
 数据表格控件。
 
@@ -52,7 +52,7 @@
 
 ```js
 //
-require('ui.grid', function(Grid){
+require('grid', function(Grid){
 
   // 第一个参数：一个<table></table>元素或者它的选择器
   // 第二个参数：配置参数
@@ -98,14 +98,14 @@ require('ui.grid', function(Grid){
 });
 ```
 
-## ui.select
+## select
 
 下拉框控件。
 
 支持加载本地和远程数据。
 
 ```js
-require('ui.select', function(Select){
+require('select', function(Select){
 
   // 第一个参数：作为弹窗内容的元素或选择器
   // 第二个参数：配置参数，可选

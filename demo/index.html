@@ -23,12 +23,19 @@
   <script>
     require(['jquery', 'ui.layout'], function($, Layout){
       // 初始化控件
-      new Layout('#loginForm', {
+      var layout = new Layout('#loginForm', {
         trigger: '#btnAdd',
         width: 500,
         height: 200,
-        autoClose: false
+        autoClose: false,
+        on: {
+          'dblclick input': function(e){
+            console.info(e.target.value)
+          }
+        }
       });
+
+      layout.show();
     });
   </script>
 </body>

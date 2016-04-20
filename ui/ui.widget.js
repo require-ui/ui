@@ -1,5 +1,5 @@
 //
-define(['ui.event', 'ui.klass'], function(Event, Klass){
+define(['ui.event', 'ui.klass', 'jquery'], function(Event, Klass, $){
 
   var Widget;
 
@@ -20,6 +20,44 @@ define(['ui.event', 'ui.klass'], function(Event, Klass){
       if(this.config.cls){
         this.target.addClass(this.config.cls);
       };
+
+    },
+
+    // 绑定事件
+    bindEvents: function(container){
+
+      var self = this;
+
+      // this.on 处理
+      var events = this.config.on || {}, event, selector, fn;
+      //
+      for(var n in events) if(events.hasOwnProperty(n)){
+
+        // 回调事件
+        fn = events[n];
+        if(typeof fn === 'string'){
+          fn = self[fn];
+        };
+        if(typeof fn !== 'function'){
+          continue;
+        };
+
+        // 分解 "event selector"
+        n = n.split(/\s+/);
+        if(n.length < 2) continue;
+
+        // event & selector
+        event = n[0]+'.bindEvents';
+        selector = n[1];
+
+        // 绑定
+        $(container || document.body)
+          .off(event, selector)
+          .on(event, selector, function(e){
+            fn.call(self, e);
+          });
+      };
+
     },
 
     // 初始化参数
@@ -32,6 +70,7 @@ define(['ui.event', 'ui.klass'], function(Event, Klass){
     parseTarget: function(tag){
       //
       this.target = $(tag);
+      this.container = this.target;
       if(!this.target.length){
         throw 'not found target ' + tag;
       };

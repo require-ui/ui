@@ -79,8 +79,12 @@ define(['jquery', 'mustache', 'ui.widget'], function($, Mustache, WidgetBase){
       modal: true,
       //
       onClose: function(){},
-
-      closeButtonText: '关闭'
+      //
+      closeButtonText: '关闭',
+      //
+      on: {
+        'click .ui-layout-close-button': 'onClickCloseButton'
+      }
     },
 
     init:  function(){
@@ -177,11 +181,11 @@ define(['jquery', 'mustache', 'ui.widget'], function($, Mustache, WidgetBase){
             isCloseButton: true,
             text: cfg.closeButtonText,
             cls: 'ui-layout-close-button',
-            fn: function(){
-              if(cfg.onClose.call(self) !== false){
-                self.hide();
-              };
-            }
+            // fn: function(){
+            //   if(cfg.onClose.call(self) !== false){
+            //     self.hide();
+            //   };
+            // }
           });
         };
 
@@ -221,19 +225,16 @@ define(['jquery', 'mustache', 'ui.widget'], function($, Mustache, WidgetBase){
       };
 
       return self._layout;
+    },
 
-      // if(!Widget._layout){
-      //   layout = $(TPL_LAYOUT).hide().appendTo('body');
-      //   Widget._layout = layout;
-      //   // 关闭按钮
-      //   layout.on('click', '.ui-layout-close', function(){
-      //     if(Widget.current){
-      //       Widget.current.hide();
-      //     };
-      //   });
-      // };
+    onClickCloseButton: function(){
 
-      // return Widget._layout;
+      var self = this, 
+        cfg = this.config;
+
+      if(cfg.onClose.call(self) !== false){
+        self.hide();
+      };
     },
 
     show: function(){
@@ -282,6 +283,11 @@ define(['jquery', 'mustache', 'ui.widget'], function($, Mustache, WidgetBase){
 
       //
       this.isOpen = true;
+
+      this.bindEvents(layout);
+      this.bindEvents(layout);
+      this.bindEvents(layout);
+      this.bindEvents(layout);
 
       return this;
     },

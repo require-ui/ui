@@ -26,7 +26,8 @@ require(['layout'], function(Layout){
 });
 
 */
-define(['jquery', 'mustache', 'ui.widget'], function($, Mustache, WidgetBase){
+define(['jquery', 'mustache', 'widget', 'css!layout.css'], 
+  function($, Mustache, WidgetBase){
  
   // 待实现功能：
   // 防止一个target被重复初始化

@@ -1,4 +1,4 @@
-# richdata.ui
+# ui
 
 这是一个基于requirejs和jquery的UI库，包含数据表格、弹出层、下拉框等常用控件。
 

@@ -1,5 +1,5 @@
 //
-define(['ui.event', 'ui.klass', 'jquery'], function(Event, Klass, $){
+define(['event', 'klass', 'jquery'], function(Event, Klass, $){
 
   var Widget;
 

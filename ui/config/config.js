@@ -7,7 +7,7 @@
   var pageUrl = location.href.split('?')[0];
   var pageDir = pageUrl.replace(/[^\/]+$/, '');
   //
-  var uiDir = loaderScript.src.split(/config\.js\??/)[0];
+  var uiDir = loaderScript.src.split(/config\/config\.js\??/)[0];
   var scriptQS = loaderScript.src.split('?')[1] || '';
   //
   var base = (scriptQS.match(/\bbase=([^\b]*)/) || [])[1] || '';
@@ -18,24 +18,24 @@
     // lib
       "d3": "lib/d3/d3"
     , "lodash": "lib/lodash/lodash"
-    , "jquery": "lib/jquery/jquery"
+    , "jquery": "lib/zepto/zepto"
     , "moment": "lib/moment/moment"
     , "mustache": "lib/mustache/mustache"
 
     // ui
     , "ui": "ui"
     
-    , "ui.ajax": "ui.ajax"
-    , "ui.event": "ui.event"
-    , "ui.klass": "ui.klass"
-    , "ui.widget": "ui.widget"
+    , "ajax": "widget/ajax/ajax"
+    , "event": "widget/event/event"
+    , "klass": "widget/klass/klass"
+    , "widget": "widget/widget/widget"
 
-    , "ui.grid": "ui.grid"
     , "layout": "widget/layout/layout"
-    , "ui.select": "ui.select"
-    , "ui.msg": "ui.msg"
-    , "ui.where.conditions": "ui.where.conditions"
-    , "ui.hive.conditions": "ui.hive.conditions"
+    , "grid": "widget/grid/grid"
+    , "select": "widget/select/select"
+    , "msg": "widget/msg/msg"
+    , "where.conditions": "widget/where.conditions/where.conditions"
+    , "hive.conditions": "widget/hive.conditions/hive.conditions"
   };
 
   // uiDir
@@ -53,7 +53,12 @@
         "exports": "d3"
       },
       "jquery": {
-        "exports": "jQuery"
+        "exports": "$"
+      }
+    },
+    map: {
+      '*': {
+        'css': uiDir + 'lib/require-css/css.js' // or whatever the path to require-css is
       }
     }
   }

@@ -3,7 +3,7 @@
 用法：
 
 //
-require(['ui.grid'], function(Grid){
+require(['grid'], function(Grid){
 
   // 第一个参数：一个<table></table>元素或者它的选择器
   // 第二个参数：配置参数
@@ -50,7 +50,7 @@ require(['ui.grid'], function(Grid){
 
 */
 
-define(['jquery', 'mustache', 'ui.widget', 'ui.ajax'], 
+define(['jquery', 'mustache', 'widget', 'ajax', 'css!grid.css'], 
   function($, Mustache, WidgetBase, Ajax){
 
   var Widget;
@@ -107,7 +107,7 @@ define(['jquery', 'mustache', 'ui.widget', 'ui.ajax'],
       var thead;
 
       // add class
-      tag.addClass('ui-grid');
+      tag.addClass('grid');
       tag.html('<thead></thead><tfoot style="display:none"></tfoot><tbody></tbody>');
 
       // thead

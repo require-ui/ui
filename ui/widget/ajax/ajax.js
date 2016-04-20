@@ -39,7 +39,7 @@ define(['jquery'], function($){
         };
         callback(data);
       }else{
-        throw 'ui.ajax.loadJSON need param: url or data';
+        throw 'ajax.loadJSON need param: url or data';
       };
 
     } // end loadJSON

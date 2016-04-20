@@ -3,7 +3,7 @@
 用法：
 
 //
-require(['ui.select'], function(Select){
+require(['select'], function(Select){
 
   // 第一个参数：作为弹窗内容的元素或选择器
   // 第二个参数：配置参数，可选
@@ -46,7 +46,7 @@ require(['ui.select'], function(Select){
 });
 
 */
-define(['jquery', 'ui.widget', 'ui.ajax'], 
+define(['jquery', 'widget', 'ajax'], 
   function($, WidgetBase, Ajax){
  
   // 待实现功能：

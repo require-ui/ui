@@ -3,7 +3,7 @@
 用法：
 
 //
-require(['ui.hive.conditions'], function(WhereConditions){
+require(['where.conditions'], function(WhereConditions){
 
 
 
@@ -11,24 +11,33 @@ require(['ui.hive.conditions'], function(WhereConditions){
 
 */
 
-define(['jquery', 'mustache', 'ui.widget', 'ui.ajax'], 
+define(['jquery', 'mustache', 'widget', 'ajax', 'css!where.conditions.css'], 
   function($, Mustache, WidgetBase, Ajax){
 
   var Widget;
 
   var TPL_THEAD_TRS =
     '<tr>' +
+    '  <td>括号</td>' +
+    '  <td>逻辑</td>' +
+    '  <td>括号</td>' +
     '  <td>字段</td>' +
     '  <td>比较符</td>' +
     '  <td>值</td>' +
+    '  <td>括号</td>' +
     '  <td><a class="add" href="javascript:;">+</a></td>' +
     '</tr>';
 
   var TPL_TBODY_TRS = 
     '<tr>' +
+
+    '<td class="">{{{leftBracket}}}</td>' +
+    '<td class="">{{{logic}}}</td>' +
+    '<td class="">{{{midBracket}}}</td>' +
     '<td class="">{{{field}}}</td>' +
     '<td class="">{{{operator}}}</td>' +
     '<td class="">{{{value}}}</td>' +
+    '<td class="">{{{rightBracket}}}</td>' +
 
     '<td class="remove">' +
     '  <a class="remove" href="javascript:;">-</a>' +
@@ -48,13 +57,18 @@ define(['jquery', 'mustache', 'ui.widget', 'ui.ajax'],
     '</select>';
 
   var TPL_OPERATORS_SELECT = 
+    // '<select name="operator">' +
+    // '  <option value="=">=</option>' +
+    // '  <option value="&gt;">&gt;</option>' +
+    // '  <option value="&lt;">&lt;</option>' +
+    // '  <option value="&gt;=">&gt;=</option>' +
+    // '  <option value="&lt;=">&lt;=</option>' +
+    // '  <option value="like">like</option>' +
+    // '</select>';
     '<select name="operator">' +
-    '  <option value="equals">equals</option>' +
-    '  <option value="notequals">notequals</option>' +
-    '  <option value="greaterthan">greaterthan</option>' +
-    '  <option value="greaterthanequals">greaterthanequals</option>' +
-    '  <option value="lessthan">lessthan</option>' + 
-    '  <option value="lessthanequals">lessthanequals</option>' +
+    '  {{#operators}}' +
+    '  <option value="{{.}}">{{.}}</option>' +
+    '  {{/operators}}' +
     '</select>';
 
   var TPL_VALUE_INPUT = 
@@ -64,12 +78,20 @@ define(['jquery', 'mustache', 'ui.widget', 'ui.ajax'],
     '<select name="leftBracket">' +
     '  <option value="">&nbsp;</option>' +
     '  <option value="(">(</option>' +
+    '  <option value="((">((</option>' +
+    '  <option value="(((">(((</option>' +
+    '  <option value="((((">((((</option>' +
+    '  <option value="(((((">(((((</option>' +
     '</select>';
 
   var TPL_MID_BRACKET_SELECT = 
     '<select name="midBracket">' +
     '  <option value="">&nbsp;</option>' +
     '  <option value="(">(</option>' +
+    '  <option value="((">((</option>' +
+    '  <option value="(((">(((</option>' +
+    '  <option value="((((">((((</option>' +
+    '  <option value="(((((">(((((</option>' +
     '</select>';
 
   var TPL_RIGHT_BRACKET_SELECT = 
@@ -77,13 +99,17 @@ define(['jquery', 'mustache', 'ui.widget', 'ui.ajax'],
     '  <option value="">&nbsp;</option>' +
     '  <option value=")">)</option>' +
     '  <option value="))">))</option>' +
+    '  <option value=")))">)))</option>' +
+    '  <option value="))))">))))</option>' +
+    '  <option value=")))))">)))))</option>' +
     '</select>';
 
   var proto = {
 
     // 默认配置
     defaults: {
-
+      // 比较符
+      operators: ['=', '>', '<', '>=', '<=', 'like', '!=']
     },
 
     // 初始化
@@ -92,11 +118,12 @@ define(['jquery', 'mustache', 'ui.widget', 'ui.ajax'],
       var self = this;
       var tag = this.target, cfg = this.config;
       var thead, tbody;
+      var operatorsHtml;
 
       this.fields = cfg.fields || [];
 
       // add class
-      tag.addClass('ui-hive-conditions');
+      tag.addClass('where.conditions');
       tag.html('<thead></thead><tbody></tbody>');
 
       // thead
@@ -106,6 +133,10 @@ define(['jquery', 'mustache', 'ui.widget', 'ui.ajax'],
       // tbody
       tbody = tag.find('tbody');
 
+      operatorsHtml = Mustache.render(TPL_OPERATORS_SELECT, {
+        operators: cfg.operators
+      });
+
       // 添加行
       tag.on('click', '.add', function(){
         var tr = Mustache.render(TPL_TBODY_TRS, {
@@ -113,34 +144,45 @@ define(['jquery', 'mustache', 'ui.widget', 'ui.ajax'],
           logic: TPL_LOGIC_SELECT,
           midBracket: TPL_MID_BRACKET_SELECT,
           field: TPL_FIELD_SELECT,
-          operator: TPL_OPERATORS_SELECT,
+          operator: operatorsHtml,
           value: TPL_VALUE_INPUT,
           rightBracket: TPL_RIGHT_BRACKET_SELECT
         });
         tr = $(tr);
-        self.updateFields(cfg.fields, tr);
+        self.updateFields(tr);
         tbody.append(tr);
+        self._fireChangeEvent();
       });
 
       // 删除行
       tag.on('click', 'tr>td>.remove', function(){
         var tr = $(this).parent().parent();
         tr.remove();
+        self._fireChangeEvent();
+      });
+
+      // fire change event
+      tag.on('change', 'input,select', function(){
+        self._fireChangeEvent();
       });
 
       return this;
     },
 
+    _fireChangeEvent: function(){
+      this.fire('change', {
+        newVal: this.getValue()
+      });
+    },
+
     //
-    updateFields: function(fields, range){
+    updateFields: function(range){
       var self = this, 
         tag = this.target, 
         cfg = this.config;
       var optionList = ['<option value="">请选择</option>'];
 
-      cfg.fields = fields;
-
-      $.each(fields, function(i,n){
+      $.each(cfg.fields, function(i,n){
         optionList.push('<option value="' + n + '">' + n + '</option>');
       });
       optionList = optionList.join('');
@@ -168,27 +210,30 @@ define(['jquery', 'mustache', 'ui.widget', 'ui.ajax'],
 
       tag.find('tbody tr').each(function(){
         var tr = $(this);
-        var val = self.getTrValue(tr);
-        //
-        if(val.name && val.operator){
-          s.push(val);
-        };
+        s.push(self.getTrValue(tr));
       });
 
-      return s;
+      return s.join(' ').replace(/\s+/gm, ' ');
     },
 
     getTrValue: function(tr){
-      var s = {};
+      var s = [];
       var value = $.trim(tr.find('input[name=value]').val());
 
-      s = {
-        name: tr.find('select[name=field]').val(),
-        operator: tr.find('select[name=operator]').val(),
-        value: value
+      if(!value || isNaN(value)){
+        value = '"' + value + '"';
       };
 
-      return s;
+      s.push(
+        tr.find('select[name=leftBracket]').val(),
+        tr.find('select[name=logic]').val(),
+        tr.find('select[name=midBracket]').val(),
+        tr.find('select[name=field]').val(),
+        tr.find('select[name=operator]').val(),
+        value,
+        tr.find('select[name=rightBracket]').val()
+      );
+      return s.join(' ');
     }
 
   };

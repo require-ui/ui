@@ -1,6 +1,6 @@
 define(['jquery', 'layout'], function($, Layout){
 
-  var div = $('<div class="ui-msg">').appendTo('body');
+  var div = $('<div class="msg">').appendTo('body');
 
   var layout = new Layout(div, {
     modal: false

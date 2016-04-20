@@ -1,49 +1,46 @@
-.ui-hive-conditions{
+.where.conditions{
   border-collapse: collapse;
   width: 100%;
   margin-bottom: 1em;
 }
-.ui-hive-conditions td,
-.ui-hive-conditions th{
+.where.conditions td,
+.where.conditions th{
   border: 1px solid #000;
   padding: 3px;
   text-align: center;
   padding: 5px;
 }
 
-.ui-hive-conditions thead th{
+.where.conditions thead th{
   text-align: center;
   font-size: 1.1em;
 }
 
-.ui-hive-conditions .add,
-.ui-hive-conditions .remove{
+.where.conditions .add,
+.where.conditions .remove{
   text-decoration: none;
   color: #369;
   font-size: 20px;
 }
 
-.ui-hive-conditions tbody{
+.where.conditions tbody{
   max-height: 100px;
   overflow: auto;
 }
 
-.ui-hive-conditions input{
-  width: 90%;
-}
 
-// .ui-hive-conditions-date td{
+// .where.conditions-date td{
 //   padding-left: 50px;
 //   font-size: 1.1em;
 //   text-align: left;
 // }
-// .ui-hive-conditions-item td{
+// .where.conditions-item td{
 //   font-weight: bold;
 // }
-// .ui-hive-conditions-design td{
+// .where.conditions-design td{
 //   background: #CB9CFC;
 // }
-// .ui-hive-conditions-footer td{
+// .where.conditions-footer td{
 //   text-align: left;
 //   padding-left: 1em;
 // }

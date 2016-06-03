@@ -177,6 +177,7 @@ define(['jquery', 'mustache', 'widget', 'ajax', 'css!grid.css'],
 
       // 加载本地或者远程数据
       Ajax.loadJSON(cfg, function(data, json){
+        json = json || {};
         self.loadData(data, {
           total: json.total || 0
         });
@@ -185,6 +186,9 @@ define(['jquery', 'mustache', 'widget', 'ajax', 'css!grid.css'],
 
     // 加载数据
     loadData: function(data, opts){
+
+      opts = $({}, opts);
+
       var tag = this.target, cfg = this.config;
       var tbody;
       var rows = [], row, cols, value;

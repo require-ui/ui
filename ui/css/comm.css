@@ -1,0 +1,120 @@
+@charset "UTF-8";
+@import url(base.css);
+@import url(animate.css);
+/*function css*/
+.rel{
+    position:relative;
+}
+.abs{
+    position:absolute;
+}
+.dn{
+    display:none;
+}
+.block{ 
+    display:block; 
+}
+.r{
+    float:right;
+}
+.l{
+    float:left;
+}
+.mc{
+    margin:0 auto;
+}
+.tl{ 
+    text-align:left; 
+}
+.tr{ 
+    text-align:right; 
+}
+.tc{ 
+    text-align:center; 
+}
+.cl{ 
+    clear:both; 
+}
+.textOverflow{
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow:hidden;
+}
+.textBreak{
+    word-break:break-all;
+　　word-wrap:break-word;
+}
+.col-red{
+    color:red;
+}
+.col-blue{
+    color:blue;
+}
+.col-green{
+    color:green;
+}
+.col-gray{
+    color:gray;
+}
+
+/* media */
+/* 横屏 */
+@media screen and (orientation:landscape){
+      
+}
+/* 竖屏 */
+@media screen and (orientation:portrait){
+      
+}
+/* 窗口宽度<960,设计宽度=768 */
+@media screen and (max-width:959px){
+      
+}
+/* 窗口宽度<768,设计宽度=640 */
+@media screen and (max-width:767px){
+      
+}
+/* 窗口宽度<640,设计宽度=480 */
+@media screen and (max-width:639px){
+      
+}
+/* 窗口宽度<480,设计宽度=320 */
+@media screen and (max-width:479px){
+      
+}
+/* windows UI 贴靠 */
+@media screen and (-ms-view-state:snapped){
+      
+}
+/* 打印 */
+/*@media print{
+      
+}*/
+
+
+/* animation */
+/* 淡入 */
+.a-fadein{
+    -webkit-animation-name:fadein;
+    -moz-animation-name:fadein;
+    -ms-animation-name:fadein;
+    animation-name:fadein;
+}
+/* define */
+/* 淡入 */
+@-webkit-keyframes fadein{
+    0%{opacity:0;}
+    100%{opacity:1;}
+}
+@-moz-keyframes fadein{
+    0%{opacity:0;}
+    100%{opacity:1;}
+}
+@-ms-keyframes fadein{
+    0%{opacity:0;}
+    100%{opacity:1;}
+}
+@keyframes fadein{
+    0%{opacity:0;}
+    100%{opacity:1;}
+}

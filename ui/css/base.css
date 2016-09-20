@@ -1,0 +1,70 @@
+﻿@charset "UTF-8";
+/*base.css*/
+html{
+	font-size:62.5%;
+}
+html,body{
+    width:100%;
+    margin:0;
+    overflow:hidden;
+    font-family:'Microsoft YaHei';
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+    -webkit-tap-highlight-color:transparent;
+    -webkit-text-size-adjust:none;
+    -webkit-touch-callout:behavior;
+}
+h1,h2,h2,h3,h4,h5,h6{
+    margin:0;
+    font-size:100%;
+}
+p,dl,dd,form,figure{
+    margin:0;
+}
+td,th{
+    padding:0;
+}
+a,a:hover,time{
+    text-decoration:none;
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+    -webkit-tap-highlight-color:transparent;
+}
+ol,ul{
+	padding:0;
+    margin:0;
+    list-style:none;
+}
+li{
+    list-style-type:none;
+}
+table{
+    border-collapse:collapse;
+}
+img{
+    border:none;
+    vertical-align:middle;
+}
+em,i{
+    font-style:normal;
+}
+textarea,input{
+    padding:0;
+    margin:0;
+    resize:none;
+    outline:none;
+    font-family:'Microsoft YaHei';
+    vertical-align:middle;
+    -webkit-appearance:none;
+}
+/*点击链接时周围的虚线框*/
+input::-ms-clear{
+    display:none;
+}
+/*chrome记住密码 input输入框会有黄色*/
+input:-webkit-autofill { 
+    -webkit-box-shadow: 0 0 0px 100px #f9f9f9 inset;
+}
+
+/*html5 reset*/
+header,nav,article,section,aside,footer,figure,figcaption{
+    display:block;
+}

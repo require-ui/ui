@@ -1,4 +1,4 @@
-# richdata.ui
+# ui
 
 这是一个基于requirejs和jquery的UI库，包含数据表格、弹出层、下拉框等常用控件。
 
@@ -21,14 +21,14 @@
   <button>保存</button>
 </form>
 
-<script src="ui/lib/require/require.js"></script>
-<script src="ui/config.js"></script>
+<script src="../ui/lib/require/require.js"></script>
+<script src="../ui/config/config.js"></script>
 ```
 
 第四步，通过require引入要使用的模块，然后初始化。
 ```html
 <script>
-  require(['jquery', 'ui.layout'], function($, Layout){
+  require(['jquery', 'layout'], function($, Layout){
     // 初始化控件
     new Layout('#loginForm', {
       trigger: '#btnAdd',
@@ -42,7 +42,7 @@
 
 以下是目前包含的控件的参数说明：
 
-## ui.grid 
+## grid 
 
 数据表格控件。
 
@@ -52,7 +52,7 @@
 
 ```js
 //
-require('ui.grid', function(Grid){
+require('grid', function(Grid){
 
   // 第一个参数：一个<table></table>元素或者它的选择器
   // 第二个参数：配置参数
@@ -98,14 +98,14 @@ require('ui.grid', function(Grid){
 });
 ```
 
-## ui.select
+## select
 
 下拉框控件。
 
 支持加载本地和远程数据。
 
 ```js
-require('ui.select', function(Select){
+require('select', function(Select){
 
   // 第一个参数：作为弹窗内容的元素或选择器
   // 第二个参数：配置参数，可选
@@ -148,7 +148,7 @@ require('ui.select', function(Select){
 });
 ```
 
-## ui.layout
+## layout
 
 弹出层控件。
 
@@ -156,7 +156,7 @@ require('ui.select', function(Select){
 
 ```js
 //
-require('ui.layout', function(Layout){
+require('layout', function(Layout){
 
   // 第一个参数：作为弹窗内容的元素或选择器
   // 第二个参数：配置参数，可选
